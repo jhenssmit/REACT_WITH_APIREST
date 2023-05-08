@@ -29,7 +29,7 @@ class Editar extends React.Component {
       },
     });
   };
-
+  //poder editar datos
   put = () => {
     console.log(this.state);
     const url = window.location.href;
@@ -51,6 +51,34 @@ class Editar extends React.Component {
       .catch((error) => {
         console.log(error);
         alert("Hubo un error al intentar actualizar los datos.");
+      });
+  };
+
+  //Eliminar Datos
+  delete = () => {
+    console.log(this.state);
+    const url = window.location.href;
+    const match = url.match(/\/editar\/(\d+)$/);
+    const id = match ? match[1] : null;
+    const urlApi = Apiurl + "empleado/" + id;
+    const token = localStorage.getItem("token");
+    axios
+      .delete(urlApi, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        // Mostrar alerta de éxito
+        alert("El empleado ha sido eliminado correctamente");
+        // Redirigir a la lista de empleados
+        window.location.href = "/Dashboard";
+      })
+      .catch((error) => {
+        console.log(error);
+        // Mostrar alerta de error
+        alert("Ha ocurrido un error al eliminar el empleado");
       });
   };
 
@@ -263,6 +291,7 @@ class Editar extends React.Component {
               type="submit"
               className="btn btn-danger"
               style={{ marginRight: "10px" }}
+              onClick={() => this.delete()}
             >
               Eliminar
             </button>

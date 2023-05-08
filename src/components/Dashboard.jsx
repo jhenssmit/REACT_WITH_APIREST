@@ -12,6 +12,10 @@ class Dashboard extends React.Component {
     window.location.href = "./editar/" + id;
   }
 
+  clickAgregar() {
+    window.location.href = "./nuevo/";
+  }
+
   componentDidMount() {
     let url = Apiurl + "empleado";
     axios.get(url).then((response) => {
@@ -38,6 +42,7 @@ class Dashboard extends React.Component {
                 <th scope="col">DIRECCIÓN</th>
                 <th scope="col">TELÉFONO</th>
                 <th scope="col">INGRESO</th>
+                <th scope="col">TIPO_EMPLEADO</th>
               </tr>
             </thead>
             <tbody>
@@ -52,11 +57,15 @@ class Dashboard extends React.Component {
                     <td>{value.direccEmp}</td>
                     <td>{value.telefono}</td>
                     <td>{value.ingreso}</td>
+                    <td>{value.tipoEmpleado}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+          <button onClick={() => this.clickAgregar()}>
+            Registrar Empleado
+          </button>
         </div>
       </React.Fragment>
     );
